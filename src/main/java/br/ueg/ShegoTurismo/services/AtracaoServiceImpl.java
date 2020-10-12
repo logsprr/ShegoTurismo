@@ -28,7 +28,6 @@ public class AtracaoServiceImpl implements AtracaoService {
 		return pr.save(atracao);
 	}
 
-	@Override
 	public Mono<Void> deleteById(String id) {
 		return pr.deleteById(id);
 	}

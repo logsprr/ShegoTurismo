@@ -29,7 +29,6 @@ public class EstabeleciementoServiceImpl implements EstabelecimentoService{
 		return pr.save(estabelecimento);
 	}
 
-	@Override
 	public Mono<Void> deleteById(String id) {
 		return pr.deleteById(id);
 	}
