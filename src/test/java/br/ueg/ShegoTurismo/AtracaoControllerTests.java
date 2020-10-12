@@ -94,6 +94,7 @@ public class AtracaoControllerTests {
 	
 	@Test
 	void deleteIdEstabeleciemento() {
+		Atracao atracao = new Atracao("1", "Circo de Solei");
 		Mono<Void> voidReturn = Mono.empty();
 		
 		Mockito.when(repository.deleteById("1"))

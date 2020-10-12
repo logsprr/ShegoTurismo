@@ -35,8 +35,7 @@ public class AtracaoHandler {
 	public Mono<ServerResponse> deleteById(ServerRequest request){
 		String id = request.pathVariable("id");
 		return ok()
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(service.deleteById(id), Atracao.class);
+				.build(service.deleteById(id));
 	}
 	
 }

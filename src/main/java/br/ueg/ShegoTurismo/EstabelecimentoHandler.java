@@ -36,7 +36,6 @@ public class EstabelecimentoHandler {
 	public Mono<ServerResponse> deleteById(ServerRequest request){
 		String id = request.pathVariable("id");
 		return ok()
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(service.deleteById(id), Estabelecimento.class);
+				.build(service.deleteById(id));
 	}
 }
