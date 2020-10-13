@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ueg.ShegoTurismo.document.Atracao;
+import br.ueg.ShegoTurismo.repository.AtracaoRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -11,7 +12,7 @@ import reactor.core.publisher.Mono;
 public class AtracaoServiceImpl implements AtracaoService {
 
 	@Autowired
-	AtracaoService pr;
+	AtracaoRepository pr;
 
 	@Override
 	public Flux<Atracao> findAll() {

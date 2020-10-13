@@ -29,79 +29,61 @@ import reactor.core.publisher.Mono;
 @WebFluxTest(controllers = EstabelecimentoController.class)
 @Import(EstabelecimentoService.class)
 public class EstabelecimentoControllerTests {
-	
+
 	@MockBean
 	private EstabelecimentoRepository repository;
 	@Autowired
 	private WebTestClient webClient;
-	
+
 	@Test
 	void testCreateEstabeleciemento() {
 		Estabelecimento estabeleciemento = new Estabelecimento("1", "Lojas Americanas");
-		
-		Mockito.when(repository.save(estabeleciemento))
-		.thenReturn(Mono.just(estabeleciemento));
-		
-		webClient.post()
-		.uri("/estabelecimentos")
-		.contentType(MediaType.APPLICATION_JSON)
-		.body(BodyInserters.fromObject(estabeleciemento))
-		.exchange()
-		.expectStatus().isCreated();
-		
+
+		Mockito.when(repository.save(estabeleciemento)).thenReturn(Mono.just(estabeleciemento));
+
+		webClient.post().uri("/estabelecimentos").contentType(MediaType.APPLICATION_JSON)
+				.body(BodyInserters.fromObject(estabeleciemento)).exchange().expectStatus().isCreated();
+
 		Mockito.verify(repository, times(1)).save(estabeleciemento);
 	}
-	
+
 	@Test
 	void getAllEstabelecimento() {
 		List<Estabelecimento> estabeleciemento = new ArrayList<Estabelecimento>();
 		estabeleciemento.add(new Estabelecimento("1", "Lojas Americanas"));
 		estabeleciemento.add(new Estabelecimento("1", "Magazine Luiza"));
 		estabeleciemento.add(new Estabelecimento("1", "Carrefour"));
-		
+
 		Flux<Estabelecimento> estabelecimentoFlux = Flux.fromIterable(estabeleciemento);
-		
-		Mockito.when(repository.findAll())
-		.thenReturn(estabelecimentoFlux);
-		
-		webClient.get()
-		.uri("/estabelecimentos")
-		.header(HttpHeaders.ACCEPT, "application/json")
-		.exchange()
-		.expectStatus().isOk()
-		.expectBodyList(Estabelecimento.class);
-		
+
+		Mockito.when(repository.findAll()).thenReturn(estabelecimentoFlux);
+
+		webClient.get().uri("/estabelecimentos").header(HttpHeaders.ACCEPT, "application/json").exchange()
+				.expectStatus().isOk().expectBodyList(Estabelecimento.class);
+
 		Mockito.verify(repository, times(1)).findAll();
-		
+
 	}
-	
+
 	@Test
 	void getIdEstabelecimento() {
 		Estabelecimento estabeleciemento = new Estabelecimento("1", "Lojas Americanas");
-		
-		Mockito.when(repository.findById(estabeleciemento.getId()))
-		.thenReturn(Mono.just(estabeleciemento));
-		
-		webClient.get()
-		.uri("/estabelecimentos/{id}", estabeleciemento.getId())
-		.exchange()
-		.expectStatus().isOk()
-		.expectBody()
-		.jsonPath("$.id").isEqualTo(estabeleciemento.getId());
-		
+
+		Mockito.when(repository.findById(estabeleciemento.getId())).thenReturn(Mono.just(estabeleciemento));
+
+		webClient.get().uri("/estabelecimentos/{id}", estabeleciemento.getId()).exchange().expectStatus().isOk()
+				.expectBody().jsonPath("$.id").isEqualTo(estabeleciemento.getId());
+
 		Mockito.verify(repository, times(1)).findById(estabeleciemento.getId());
 	}
-	
+
 	@Test
 	void deleteIdEstabeleciemento() {
 		Mono<Void> voidReturn = Mono.empty();
-		
-		Mockito.when(repository.deleteById("1"))
-		.thenReturn(voidReturn);
-		
-		webClient.delete().uri("/estabelecimentos/{id}", "1")
-        .exchange()
-        .expectStatus().isOk();
+
+		Mockito.when(repository.deleteById("1")).thenReturn(voidReturn);
+
+		webClient.delete().uri("/estabelecimentos/{id}", "1").exchange().expectStatus().isOk();
 	}
-	
+
 }

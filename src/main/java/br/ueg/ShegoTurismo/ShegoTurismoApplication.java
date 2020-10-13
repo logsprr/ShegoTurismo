@@ -1,4 +1,5 @@
 package br.ueg.ShegoTurismo;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,11 +14,9 @@ public class ShegoTurismoApplication {
 
 		Flux<String> colorFlux = Flux.just("black", "white", "blue");
 
-			colorFlux
-				.log()
-				.map(String::toUpperCase);
-//			.subscribe();
-//			.subscribe(System.out::println);
+		colorFlux.log().map(String::toUpperCase);
+		// .subscribe();
+		// .subscribe(System.out::println);
 	}
 
 }

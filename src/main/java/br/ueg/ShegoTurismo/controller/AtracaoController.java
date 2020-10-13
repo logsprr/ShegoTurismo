@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ueg.ShegoTurismo.document.Atracao;
 import br.ueg.ShegoTurismo.services.AtracaoService;
+import br.ueg.ShegoTurismo.services.AtracaoServiceImpl;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
@@ -22,7 +23,7 @@ import reactor.util.function.Tuple2;
 @RestController
 public class AtracaoController {
 	@Autowired
-	AtracaoService service;
+	AtracaoServiceImpl service;
 	
 	@GetMapping(value="/atracoes")
 	public Flux<Atracao> getAtracoes(){
